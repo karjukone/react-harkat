@@ -1,15 +1,22 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import pizzaImg from './assets/images/pizza.jpg';
 
-const PizzaCard = () => {
+const PizzaCard = (props) => {
+  const {pizza, addToCart} = props;
+
+  console.log(props);
   return (
-    <div className='card'>
-        <h3>pizza</h3>
-        <p>tässä infoa pizzasta</p>
-    </div>
+    <>
+      <div className="card">
+        <h2>{pizza.name}</h2>
+        <div>Pizzainfo</div>
+        <div>Hinta {pizza.price}€</div>
+        <img src={pizzaImg} alt="" srcset="" />
+        <button onClick={addToCart}>Lisää yksi</button>
+      </div>
+    </>
   );
 };
 
-PizzaCard.propTypes = {}
+export default PizzaCard;
 
-export default PizzaCard
+<img src="https://placehold.co/200x150/lightgreen/white" alt="pic of pizza"></img>
