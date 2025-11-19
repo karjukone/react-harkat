@@ -12,7 +12,7 @@ const MediaRow = ({item, setSelectedItem}) => {
       <td>{item.filesize}</td>
       <td>{item.media_type}</td>
       <td>
-        <button onClick={() => setSelectedItem(item)}>View</button>
+        <Link to="/single" state={{item}} >Show</Link>
       </td>
     </tr>
   );
