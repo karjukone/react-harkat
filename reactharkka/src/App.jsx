@@ -1,4 +1,4 @@
-import './App.css'
+//import './App.css'
 import Home from './components/Home';
 import Footer from './components/Footer';
 import PizzaMenu from './components/PizzaMenu';

@@ -6,7 +6,7 @@ const mediaArray = [
   {
     media_id: 8,
     user_id: 5,
-    filename: 'https://place-hold.it/1200x800.jpg&text=Pic1&fontsize=120',
+    filename: 'https://placehold.co/600x400/orange/white',
     thumbnail: 'https://placehold.co/600x400/orange/white',
     filesize: 170469,
     media_type: 'image/jpeg',
@@ -39,12 +39,21 @@ const mediaArray = [
   },
 ];
 
+
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState(null);
+   let isImg = true;
+
+ if (selectedItem == "video/npm") {
+  isImg = true; 
+  }
+  else{
+    isImg = false;
+  }
 
   return (
     <>
-      <SingleView item={selectedItem} setSelectedItem={setSelectedItem} />
+      <SingleView item={selectedItem} setSelectedItem={setSelectedItem} isImg={isImg}/>
       <h2>My Media</h2>
       <table>
         <thead>
