@@ -1,25 +1,14 @@
 import PropTypes from 'prop-types';
 
-const Greeting = (props) => {
-    console.log(props);
-    const {name, age, isTeacher} = props;
-    let teacherText = '';
-    
-    if (isTeacher) {
-        teacherText = ' ja olet opettaja';
-    }
-    else {
-        teacherText = ' ja et ole ope ';
-    }
+const Greeting = ({name, age, isTeacher}) => {
   return (
-    <main>
-        <div>
-            Greeting, nimesi on {name} ja ikäsi on {age} 
-            {teacherText}
-        </div>
-    </main>
+    <p>
+      Hei {name}, ikäsi on {age}
+      {isTeacher && 'Ja olet opettaja.'}
+    </p>
   );
 };
+
 
 //kevyt tyyppitarkASTUS
 

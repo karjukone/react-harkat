@@ -9,9 +9,6 @@ import PizzaCard from './components/PizzaCard';
      <>
        <h1>My App</h1>
        <Home/>
-       <PizzaMenu/> 
-        <PizzaCard/>
-       <Footer/>
      </>
    );
  };

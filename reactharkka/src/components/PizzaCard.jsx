@@ -1,4 +1,5 @@
-import pizzaImg from './assets/images/pizza.jpg';
+import pizzaImg from "../assets/images/pizza.jpg";
+import PizzaMenu from "./PizzaMenu";
 
 const PizzaCard = (props) => {
   const {pizza, addToCart} = props;
@@ -10,7 +11,7 @@ const PizzaCard = (props) => {
         <h2>{pizza.name}</h2>
         <div>Pizzainfo</div>
         <div>Hinta {pizza.price}€</div>
-        <img src={pizzaImg} alt="" srcset="" />
+        <img src={pizzaImg} alt="" srcSet="" />
         <button onClick={addToCart}>Lisää yksi</button>
       </div>
     </>
@@ -18,5 +19,3 @@ const PizzaCard = (props) => {
 };
 
 export default PizzaCard;
-
-<img src="https://placehold.co/200x150/lightgreen/white" alt="pic of pizza"></img>
