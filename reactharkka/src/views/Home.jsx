@@ -1,6 +1,6 @@
 import MediaRow from '../components/MediaRow';
 import SingleView from '../components/SingleView';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 const mediaArray = [
   {
@@ -39,10 +39,31 @@ const mediaArray = [
   },
 ];
 
+const MEDIA_API = import.meta.env.VITE_MEDIA_API + '/medi_api';
+
 
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState(null);
-   let isImg = true;
+  const [mediaArray, setMediaArray] = useState([]);
+
+  useEffect(() => {
+    try {
+      const getMedia = async () => {
+        const data = await fetchData(MEDIA_API);
+        console.log(mediaData);
+      }
+
+      const newArray = Promise.all(
+        mediaData.map(async (item) => {
+        const user = await fetchData(AUTH_API + item.id);
+        console.log(user);
+        return user;
+      }))
+    }catch(error) {
+      console.log(error);
+
+    }
+  });
 
  if (selectedItem == "video/npm") {
   isImg = true; 
