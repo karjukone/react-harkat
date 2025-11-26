@@ -1,29 +1,26 @@
-import PizzaCard from './PizzaCard';
 import {useState} from 'react';
-
-const pizzas = [
-  {id: 1, name: 'Margarita', price: 12},
-  {id: 2, name: 'Vege', price: 5},
-  {id: 3, name: 'Americano', price: 20},
-];
+import PizzaCard from './PizzaCard';
 
 const PizzaMenu = () => {
+  const pizzaArray = [
+    {id: 1, name: 'Margarita', price: 8},
+    {id: 2, name: 'Quatro cheese', price: 9},
+    {id: 3, name: 'Hawaiian', price: 13},
+  ];
+
   const [cart, setCart] = useState(0);
-
-  // kun lapsikomponentti pyytää lisäämään yhden pizzan
-  // ajetaan tämä parent elementin funktio
-
+  // when child component asks to add one pizza, run this parent element function
   const addToCart = () => {
     setCart((prev) => prev + 1);
+    console.log(cart);
   };
 
   return (
     <>
-      <h3>PizzaMenu</h3>
-      <div>Tässä alla herkulliset pizzat</div>
-      <div>Ostoskorissa on tällä hetkellä {cart} tuotetta</div>
-      <div className="container">
-        {pizzas.map((pizza) => (
+      <h3>Pizza Menu</h3>
+      <p>Here is the pizza menu:</p>
+      <div className="pizza-container">
+        {pizzaArray.map((pizza) => (
           <PizzaCard key={pizza.id} pizza={pizza} addToCart={addToCart} />
         ))}
       </div>

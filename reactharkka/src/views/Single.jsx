@@ -1,31 +1,35 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import {useLocation, useNavigate} from 'react-router';
 
 const Single = () => {
   const navigate = useNavigate();
+
   const {state} = useLocation();
   const item = state;
-  return (
-    <>
-      <h2>Single item</h2>
-      {item && (
+
+  if (item) {
+    return (
+      <div className="single-view-dialog">
+        {}
+
+        {item.media_type.includes('image') ? (
+          <img src={item.thumbnail} alt={item.title} />
+        ) : (
+          <video width="80%" controls>
+            <source src={item.filename} type={item.media_type} />
+            Your browser does not support the video tag.
+          </video>
+        )}
+
         <div>
-          <div>{item.title}</div>
-          <div>{item.description}</div>
-          <div>{item.username}</div>
-          {/* TODO: eli kotitehtävä (jos kuva niin laitetaan kuva, video, niin video) */}
-          <button
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            Go back
-          </button>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
         </div>
-      )}
-    </>
-  );
+        <button onClick={() => navigate(-1)}>Go back</button>
+      </div>
+    );
+  }
+  return <div></div>;
 };
 
 Single.propTypes = {};

@@ -1,26 +1,29 @@
 const SingleView = (props) => {
-  const {item, setSelectedItem, isImg} = props;
+  const {item, updateSelectedItem} = props;
 
+  if (item) {
+    return (
+      <dialog open className="single-view-dialog">
+        {}
 
+        {item.media_type.includes('image') ? (
+          <img src={item.thumbnail} alt={item.title} />
+        ) : (
+          <video width="80%" controls>
+            <source src={item.filename} type={item.media_type} />
+            Your browser does not support the video tag.
+          </video>
+        )}
 
+        <div>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </div>
 
-  
-  return (
-    <>
-      {item && (
-        <dialog open>
-          <div>
-            {isImg ? (<img src={item.thumbnail} alt={item.title} />)
-            : (<video src={item.thumbnail}/>)}
-          </div>
-          
-          <div>{item.title}</div>
-          <div>{item.description}</div>
-          <div>{item.username}</div>
-          <button onClick={() => setSelectedItem('')}>Close Dialog</button>
-        </dialog>
-      )}
-    </>
-  );
+        <button onClick={() => updateSelectedItem(null)}>Close</button>
+      </dialog>
+    );
+  }
+  return <dialog close></dialog>;
 };
 export default SingleView;
