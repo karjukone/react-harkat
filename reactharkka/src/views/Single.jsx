@@ -1,14 +1,18 @@
 import {useLocation, useNavigate} from "react-router";
+
 const imageOrVideo = (item) => {
 
-  if (!item) return null;
-  
+  if (!item) {
+    return null;
+  }
 
-  if (item.media_type == 'image/jpeg') return <img src={item.thumbnail} alt={item.title} />;
-
-  else if (item.media_type == 'video/mp4') return <video src={item.filename} width={'80%'}controls></video>
-
-  else return <div>Media type not supported</div>
+  if (item.media_type == 'image/jpeg') {
+    return <img src={item.thumbnail} alt={item.title} />;
+  } else if (item.media_type == 'video/mp4') {
+    return <video src={item.filename} controls></video>
+  } else {
+    return <div>Media type not supported</div>
+  }
 };
 
 const Single = () => {
@@ -32,5 +36,6 @@ const Single = () => {
   );
 };
 
+Single.propTypes = {};
 
 export default Single;

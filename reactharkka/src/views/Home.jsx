@@ -3,7 +3,7 @@ import SingleView from '../components/SingleView';
 import {useEffect, useState} from 'react';
 import {fetchData} from '../utils/fetchData.js';
 
-const MEDIA_API = import.meta.env.VITE_MEDIA_API + '/media';
+const MEDIA_API = import.meta.env.VITE_MEDIA_API;
 const AUTH_API = import.meta.env.VITE_AUTH_API + '/users/';
 
 const Home = () => {
@@ -11,26 +11,28 @@ const Home = () => {
   const [mediaArray, setMediaArray] = useState([]);
 
   useEffect(() => {
-    try {
-      const getMedia = async () => {
-        const mediaData = await fetchData(MEDIA_API);
+    const getMedia = async () => {
+      try {
+        const mediaData = await fetchData(MEDIA_API + '/media');
         console.log(mediaData);
 
         const newArray = await Promise.all(
           mediaData.map(async (item) => {
             const user = await fetchData(AUTH_API + item.user_id);
             console.log(user);
-            return {...item, username: user.username};
-          }),
+            return { ...item, username: user.username };
+          })
         );
-        console.log(newArray);
+
         setMediaArray(newArray);
-      };
-      getMedia();
-    } catch (e) {
-      console.log('Error;', e);
-    }
+      } catch (e) {
+        console.log('Error:', e);
+      }
+    };
+
+    getMedia();
   }, []);
+
 
   return (
     <>
