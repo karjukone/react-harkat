@@ -1,37 +1,36 @@
-import PropTypes from 'prop-types';
-import {useLocation, useNavigate} from 'react-router';
+import {useLocation, useNavigate} from "react-router";
+const imageOrVideo = (item) => {
 
-const Single = () => {
-  const navigate = useNavigate();
+  if (!item) return null;
+  
 
-  const {state} = useLocation();
-  const item = state;
+  if (item.media_type == 'image/jpeg') return <img src={item.thumbnail} alt={item.title} />;
 
-  if (item) {
-    return (
-      <div className="single-view-dialog">
-        {}
+  else if (item.media_type == 'video/mp4') return <video src={item.filename} width={'80%'}controls></video>
 
-        {item.media_type.includes('image') ? (
-          <img src={item.thumbnail} alt={item.title} />
-        ) : (
-          <video width="80%" controls>
-            <source src={item.filename} type={item.media_type} />
-            Your browser does not support the video tag.
-          </video>
-        )}
-
-        <div>
-          <h3>{item.title}</h3>
-          <p>{item.description}</p>
-        </div>
-        <button onClick={() => navigate(-1)}>Go back</button>
-      </div>
-    );
-  }
-  return <div></div>;
+  else return <div>Media type not supported</div>
 };
 
-Single.propTypes = {};
+const Single = () => {
+  const {state} = useLocation();
+  const item = state;
+  const navigate = useNavigate();
+
+  return (
+    <>
+    <h2>Single item</h2>
+      {item && (
+        <dialog open>
+          <div>{item.title}</div>
+          <div>{item.description}</div>
+          {imageOrVideo(item)}
+
+          <button onClick={() => navigate(-1)}>Go back</button>
+        </dialog>
+      )}
+    </>
+  );
+};
+
 
 export default Single;
