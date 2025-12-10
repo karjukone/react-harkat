@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {Link, Outlet} from 'react-router';
 
 const Layout = () => {
@@ -14,6 +15,12 @@ const Layout = () => {
           <li>
             <Link to="/upload">Upload</Link>
           </li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/logout">Logout</Link>
+          </li>
         </ul>
       </nav>
       <main>
@@ -23,5 +30,6 @@ const Layout = () => {
   );
 };
 
+Layout.propTypes = {};
 
 export default Layout;

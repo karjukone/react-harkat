@@ -1,33 +1,36 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {useLocation, useNavigate} from 'react-router';
+import {useLocation, useNavigate} from "react-router";
+const imageOrVideo = (item) => {
+
+  if (!item) return null;
+  
+
+  if (item.media_type == 'image/jpeg') return <img src={item.thumbnail} alt={item.title} />;
+
+  else if (item.media_type == 'video/mp4') return <video src={item.filename} width={'80%'}controls></video>
+
+  else return <div>Media type not supported</div>
+};
 
 const Single = () => {
-  const navigate = useNavigate();
   const {state} = useLocation();
   const item = state;
+  const navigate = useNavigate();
+
   return (
     <>
-      <h2>Single item</h2>
+    <h2>Single item</h2>
       {item && (
-        <div>
+        <dialog open>
           <div>{item.title}</div>
           <div>{item.description}</div>
-          <div>{item.username}</div>
-          {/* TODO: eli kotitehtävä (jos kuva niin laitetaan kuva, video, niin video) */}
-          <button
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            Go back
-          </button>
-        </div>
+          {imageOrVideo(item)}
+
+          <button onClick={() => navigate(-1)}>Go back</button>
+        </dialog>
       )}
     </>
   );
 };
 
-Single.propTypes = {};
 
 export default Single;
