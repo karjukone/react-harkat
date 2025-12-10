@@ -4,7 +4,7 @@ const imageOrVideo = (item) => {
     return null;
   }
 
-  if (item.media_type == 'image/jpg' ?? 'image/jpeg') {
+  if (item.media_type == 'image/jpeg') {
     return <img src={item.thumbnail} alt={item.title} />;
   } else if (item.media_type == 'video/mp4') {
     return <video src={item.filename} width={'600'}controls></video>
