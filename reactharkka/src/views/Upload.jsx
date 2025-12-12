@@ -70,7 +70,6 @@ const Upload = () => {
             accept="image/*, video/*"
             placeholder='description'
             onChange={handleFileChange}
-            placeholder='des'
             />
         </div>
         <img
