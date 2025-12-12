@@ -1,10 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { useUserContext } from "../hooks/contextHook";
 
 const Profile = () => {
-  return <div>Profile</div>;
-};
+    const {user} = useUserContext();
 
-Profile.propTypes = {};
+    return (
+        <div>
+            {user &&
+                <>
+                    <h1>Profile</h1>
+                    <p color="white">Username: {user.username}</p>
+                    <p>Email: {user.email}</p>
+                </>
+            }
+        </div>
+    );
+};
 
 export default Profile;
