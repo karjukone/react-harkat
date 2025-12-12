@@ -1,7 +1,10 @@
 import { useAuthentication } from "../hooks/apiHooks";
+import { useNavigate } from "react-router";
+import useForm from "../hooks/formHook";
 
 const LoginForm = () => {
     const {postLogin} = useAuthentication();
+    const navigate = useNavigate();
 
     const initValues = {
         username: '',
@@ -9,9 +12,10 @@ const LoginForm = () => {
     };
 
     const doLogin = () => {
-    console.log(inputs);
-    const response = postLogin(inputs);
-    localStorage.setItem('token', response);
+        console.log(inputs);
+        const response = postLogin(inputs);
+        if (response) localStorage.setItem('token', response);
+        navigate('/')
     };
 
     const {inputs, handleInputChange, handleSubmit} = useForm(doLogin, initValues);
@@ -30,6 +34,7 @@ const LoginForm = () => {
                          id="loginuser"
                          onChange={ (e) => {handleInputChange(e)} }
                          autoComplete="username"
+                         placeholder="username"
                      />
                  </div>
                  <div>
@@ -40,6 +45,7 @@ const LoginForm = () => {
                          id="loginpassword"
                          onChange={ (e) => {handleInputChange(e)} }
                          autoComplete="current-password"
+                         placeholder="password"
                      />
                  </div>
                  <button type="submit">Login</button>

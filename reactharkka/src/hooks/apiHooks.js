@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react';
 import {fetchData} from '../utils/fetchData.js';
 
 const MEDIA_API = import.meta.env.VITE_MEDIA_API;
-const AUTH_API = import.meta.env.VITE_AUTH_API + '/users/';
+const AUTH_API = import.meta.env.VITE_AUTH_API + 'users/';
 
 function useMedia() {
     const [mediaArray, setMediaArray] = useState([]);
@@ -62,4 +62,33 @@ function useAuthentication() {
   return {postLogin};
 };
 
-export {useAuthentication, useMedia};
+const useUser = () => {
+  const getUserByToken = async (token) => {
+    const options = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+
+    const tokenResult = fetchData(`${AUTH_API}/token`, options);
+    return tokenResult;
+  };
+
+  const postUser = async (user) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    };
+
+    const registrationResult = await fetchData(`${AUTH_API}`, options);
+    
+    return registrationResult;
+  };
+
+  return {getUserByToken, postUser};
+};
+
+export {useAuthentication, useMedia, useUser};
