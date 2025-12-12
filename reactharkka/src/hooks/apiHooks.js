@@ -34,6 +34,47 @@ function useMedia() {
     return {mediaArray};
 }
 
+  const postMedia = async (fileData, inputs, token) => {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+
+      body: JSON.stringify({...inputs, ...fileData}),
+    };
+
+    const mediaResponse = await fetchData(MEDIA_API, fetchOptions);
+
+    return mediaResponse;
+  };
+
+
+const useFile = () => {
+  const postFile = async (file, token) => {
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    console.log('data.', formData);
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+      body: formData,
+    };
+
+    const uploadResponse = await fetchData(`${UPLOAD_API}/upload`, options);
+
+
+    return uploadResponse;
+  };
+
+  return {postFile};
+};
+
 
 
 function useAuthentication() {
@@ -91,4 +132,4 @@ const useUser = () => {
   return {getUserByToken, postUser};
 };
 
-export {useAuthentication, useMedia, useUser};
+export {useAuthentication, useMedia, useUser, useFile, postMedia};
