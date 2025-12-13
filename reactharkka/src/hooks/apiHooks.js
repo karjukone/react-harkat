@@ -5,6 +5,7 @@ import {fetchData} from '../utils/fetchData.js';
 
 const MEDIA_API = import.meta.env.VITE_MEDIA_API;
 const AUTH_API = import.meta.env.VITE_AUTH_API + 'users/';
+const UPLOAD_API = import.meta.env.VITE_UPLOAD
 
 function useMedia() {
     const [mediaArray, setMediaArray] = useState([]);
@@ -31,8 +32,7 @@ function useMedia() {
 
         getMedia();
     }, []);
-    return {mediaArray};
-}
+
 
   const postMedia = async (fileData, inputs, token) => {
     const fetchOptions = {
@@ -49,6 +49,43 @@ function useMedia() {
 
     return mediaResponse;
   };
+
+  
+  const modifyMedia = async (inputs, id, token) => {
+    const fetchOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+
+      body: JSON.stringify({...inputs}),
+    };
+
+    const modifyResponse = await fetchData(`${MEDIA_API}/${id}`, fetchOptions);
+
+    return modifyResponse;
+  };
+
+  const deleteMedia = async (id, token) => {
+    const fetchOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    };
+
+    const deleteResponse = await fetchData(`${MEDIA_API}/${id}`, fetchOptions);
+
+    return deleteResponse;
+  };
+
+
+
+
+  return {mediaArray, postMedia, modifyMedia, deleteMedia};
+};
 
 
 const useFile = () => {
@@ -132,4 +169,4 @@ const useUser = () => {
   return {getUserByToken, postUser};
 };
 
-export {useAuthentication, useMedia, useUser, useFile, postMedia};
+export {useAuthentication, useMedia, useUser, useFile};

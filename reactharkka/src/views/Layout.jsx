@@ -10,12 +10,10 @@ const Layout = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-pink-50 text-pink-700">
+    <div className="bg-pink-50 text-pink-700">
       <nav className="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-pink-100 shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-
-          {/* Center navigation */}
-          <ul className="flex-1 flex justify-center gap-6 text-pink-700 font-medium">
+        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center">
+          <ul className="flex-1 flex justify-center gap-6 font-medium">
             <li>
               <Link to="/" className="hover:text-pink-900 transition">
                 Home
@@ -36,13 +34,11 @@ const Layout = () => {
               </>
             )}
           </ul>
-
-          {/* Right buttons */}
-          <div className="flex items-center gap-3 ml-auto">
+          <div className="flex items-center gap-3">
             {!user && (
               <Link
                 to="/login"
-                className="px-4 py-2 rounded-full bg-pink-300 hover:bg-pink-300 transition text-white font-medium ring-1 ring-pink-100 shadow-sm"
+                className="px-4 py-2 rounded-full bg-pink-300 hover:bg-pink-400 transition text-white font-medium shadow-sm"
               >
                 Login
               </Link>
@@ -51,7 +47,7 @@ const Layout = () => {
             {user && (
               <Link
                 to="/logout"
-                className="px-4 py-2 rounded-full bg-pink-300 hover:bg-pink-300 transition text-white font-medium ring-1 ring-ppink-100 shadow-sm"
+                className="px-4 py-2 rounded-full bg-pink-300 hover:bg-pink-400 transition text-white font-medium shadow-sm"
               >
                 Logout
               </Link>
@@ -60,12 +56,13 @@ const Layout = () => {
 
         </div>
       </nav>
-
-      <main className="p-4">
+      <main className="max-w-6xl mx-auto px-4 py-2">
         <Outlet />
       </main>
+
     </div>
   );
 };
 
 export default Layout;
+
