@@ -2,6 +2,7 @@ import MediaRow from '../components/MediaRow';
 import SingleView from '../components/SingleView';
 import {useEffect, useState} from 'react';
 import {fetchData} from '../utils/fetchData.js';
+import { useUserContext } from './contextHook.js';
 
 const MEDIA_API = import.meta.env.VITE_MEDIA_API;
 const AUTH_API = import.meta.env.VITE_AUTH_API + 'users/';
@@ -169,4 +170,54 @@ const useUser = () => {
   return {getUserByToken, postUser};
 };
 
-export {useAuthentication, useMedia, useUser, useFile};
+const useLike = () => {
+  const { user } = useUserContext();
+
+  const postLike = async (mediaId) => {
+    return await fetchData(
+      `${MEDIA_API}likes`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ media_id: mediaId }),
+      }
+    );
+  };
+
+  const deleteLike = async (likeId) => {
+    return await fetchData(
+      `${MEDIA_API}likes/${likeId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+  };
+
+  const getLikeCountByMediaId = async (mediaId) => {
+    return await fetchData(`${MEDIA_API}likes/count/${mediaId}`);
+  };
+
+  const getLikeByUser = async (mediaId) => {
+    return await fetchData(`${MEDIA_API}likes/bymedia/user/${mediaId}`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  };
+
+  return {
+    postLike,
+    deleteLike,
+    getLikeCountByMediaId,
+    getLikeByUser,
+  };
+};
+
+
+export {useAuthentication, useMedia, useUser, useFile, useLike};

@@ -1,4 +1,5 @@
 import {useLocation, useNavigate} from "react-router";
+import Likes from "../components/Likes";
 
 const imageOrVideo = (item) => {
 
@@ -28,6 +29,7 @@ const Single = () => {
           <div>{item.title}</div>
           <div>{item.description}</div>
           {imageOrVideo(item)}
+          <Likes mediaId={item.media_id}></Likes>
 
           <button onClick={() => navigate(-1)}>Go back</button>
         </dialog>
